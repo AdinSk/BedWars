@@ -1,13 +1,8 @@
 package net.LukAd.BedWars.Game;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import net.LukAd.BedWars.Game.enums.TeamType;
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class Team {
