@@ -11,5 +11,4 @@ public class PlayerListener implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
     }
-
 }
