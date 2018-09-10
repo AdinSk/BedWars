@@ -1,5 +1,6 @@
 package net.LukAd.BedWars.Game;
 
+import net.LukAd.BedWars.Game.enums.GameState;
 import org.bukkit.Location;
 
 import java.util.ArrayList;
@@ -13,10 +14,20 @@ public class Game {
 
     private Location lobby;
 
+    private GameState gameState = GameState.WAITING;
+
     public Game(String name, List<Team> teams, Location lobby) {
         this.name = name;
         this.teams = teams;
         this.lobby = lobby;
+    }
+
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+    }
+
+    public GameState getGameState() {
+        return gameState;
     }
 
     public String getName() {
