@@ -33,7 +33,6 @@ public class PlayerData {
     public void setSpectator(boolean spectator) {
         this.spectator = spectator;
     }
-
     public Player getPlayer() {
         return player;
     }

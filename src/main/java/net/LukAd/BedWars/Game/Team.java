@@ -14,6 +14,7 @@ public class Team {
     private Location bedLocation;
 
     private List<PlayerData> players = new ArrayList<PlayerData>();
+
     private Location spawnLocation;
 
     public Team(String teamName, Location bedLocation, Location spawnLocation) {

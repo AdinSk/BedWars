@@ -14,6 +14,7 @@ public class BedWarsCommand implements CommandExecutor {
         this.plugin = plugin;
     }
 
+
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage("§cYou can not send command from console!");

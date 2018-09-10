@@ -35,5 +35,4 @@ public class PlayerBoard {
     public void setTitle(String title) {
         obj.setDisplayName(title);
     }
-
 }

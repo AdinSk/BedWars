@@ -10,6 +10,7 @@ import java.util.List;
 public class Game {
 
     private String name;
+
     private List<Team> teams = new ArrayList<Team>();
     private List<PlayerData> players = new ArrayList<PlayerData>();
 
