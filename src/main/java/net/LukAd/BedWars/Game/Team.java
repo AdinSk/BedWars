@@ -1,6 +1,8 @@
 package net.LukAd.BedWars.Game;
 
 import net.LukAd.BedWars.Game.Player.PlayerData;
+import net.LukAd.BedWars.Utils.Messages;
+import net.LukAd.BedWars.Utils.Titles;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -52,4 +54,30 @@ public class Team {
     public Location getSpawnLocation() {
         return spawnLocation;
     }
+
+    public void broadcastMessage(String message, boolean enabledPrefix) {
+        for (PlayerData pd : players) {
+            Player player = pd.getPlayer();
+            if (enabledPrefix) {
+                player.sendMessage(Messages.PREFIX + message);
+                continue;
+            }
+            player.sendMessage(message);
+        }
+    }
+
+    public void broadcastTitle(String title, String subtitle) {
+        for (PlayerData pd : players) {
+            Player player = pd.getPlayer();
+            Titles.send(player, title, subtitle);
+        }
+    }
+
+    public void broadcastActionBar(String message) {
+        for (PlayerData pd : players) {
+            Player player = pd.getPlayer();
+            Titles.sendAction(player, message);
+        }
+    }
+
 }

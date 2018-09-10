@@ -1,7 +1,9 @@
 package net.LukAd.BedWars.Game;
 
 import net.LukAd.BedWars.BedWars;
+import net.LukAd.BedWars.Game.Player.PlayerData;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,9 +28,9 @@ public class GameManager {
         //TODO: load all games from config...
     }
 
-    public void registerGame(String arenaName, List<Team> teams, Location lobby) {
+    public void registerGame(String arenaName, List<Team> teams, Location lobby, int maxPlayersPerTeam) {
         if (games.containsKey(arenaName)) return;
-        Game game = new Game(this, arenaName, teams, lobby);
+        Game game = new Game(this, arenaName, teams, lobby, maxPlayersPerTeam);
         games.put(arenaName, game);
     }
 
@@ -38,5 +40,14 @@ public class GameManager {
 
     public BedWars getPlugin() {
         return plugin;
+    }
+
+    public Game getGameByPlayer(Player player) {
+        for (Game g : games.values()) {
+            if (g.getPlayers().containsKey(player)) {
+                return g;
+            }
+        }
+        return null;
     }
 }
