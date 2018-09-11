@@ -2,3 +2,5 @@ name: BedWars-LukAd
 version: 1.0
 main: net.LukAd.BedWars.BedWars
 authors: [Adin_SK, Lukzon]
+commands:
+  bw:
