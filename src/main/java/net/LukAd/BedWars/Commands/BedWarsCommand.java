@@ -67,7 +67,7 @@ public class BedWarsCommand implements CommandExecutor {
             String arenaName = args[1];
             if (args[0].equalsIgnoreCase("create")) {
                 storage.set("Arena.", arenaName);
-            } else if (args[0].equalsIgnoreCase("shopvillager")) {
+            } else if (args[0].equalsIgnoreCase("addshopvillager")) {
                 storage.set("Arena." + arenaName  + ".shopvillager.world", w);
                 storage.set("Arena." + arenaName  + ".shopvillager.x", x);
                 storage.set("Arena." + arenaName  + ".shopvillager.y", y);

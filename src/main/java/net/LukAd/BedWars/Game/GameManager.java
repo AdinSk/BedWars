@@ -3,7 +3,9 @@ package net.LukAd.BedWars.Game;
 import net.LukAd.BedWars.BedWars;
 import net.LukAd.BedWars.Game.Enums.GameState;
 import net.LukAd.BedWars.Game.Player.PlayerData;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -36,7 +38,10 @@ public class GameManager {
     }
 
     public void registerGames() {
-        //TODO: load all games from Config...
+        if (plugin.getConfig().get("Arena") == null) return;
+
+        for (String game : plugin.getConfig().getConfigurationSection("Arena").getKeys(false)) {
+        }
     }
 
     public void registerGame(String arenaName, List<Team> teams, Location lobby, int maxPlayersPerTeam) {
