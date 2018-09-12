@@ -29,12 +29,11 @@ public class BedWarsCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        /* ANDREJU KVULI TOMUTO NEJDE NIC KURWA ZPRAV TO DOPIČE! xddd
-        if (!player.hasPermission("bedwars.admin")) {
+        if (!player.isOp()) {
             player.sendMessage(Messages.PREFIX + Messages.PLAYER_NO_PERMISSIONS);
             return false;
         }
-        */
+
 
         World w = player.getWorld();
         double x = player.getLocation().getX();

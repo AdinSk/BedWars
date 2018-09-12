@@ -20,10 +20,9 @@ public class BedWars extends JavaPlugin {
 
         this.gameManager = new GameManager(this);
         this.gameManager.registerGames();
-        getConfig();
+
         Bukkit.getLogger().info("[BedWars] Plugin is Enabled");
         getCommand("bw").setExecutor(new BedWarsCommand(this));
-        saveConfig();
     }
 
     public void onDisable() {
