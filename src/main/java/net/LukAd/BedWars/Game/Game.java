@@ -35,6 +35,10 @@ public class Game {
         this.maxPlayersPerTeam = maxPlayersPerTeam;
     }
 
+    public void initGame() {
+
+    }
+
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
     }

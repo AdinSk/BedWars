@@ -95,18 +95,18 @@ public class BedWarsCommand implements CommandExecutor {
                 storage.set("Arena." + arenaName + ".maxplayers", maxplayers);
                 player.sendMessage(Messages.PREFIX + Messages.PLAYER_WRITE_TO_CONFIG);
             } else if (args[0].equalsIgnoreCase("setteamspawn")) {
-                storage.set("Arena." + arenaName + "." + teamName + ".teamspawn.world", w);
-                storage.set("Arena." + arenaName + "." + teamName + ".teamspawn.x", x);
-                storage.set("Arena." + arenaName + "." + teamName + ".teamspawn.y", y);
-                storage.set("Arena." + arenaName + "." + teamName + ".teamspawn.z", z);
-                storage.set("Arena." + arenaName + "." + teamName + ".teamspawn.pitch", pitch);
-                storage.set("Arena." + arenaName + "." + teamName + ".teamspawn.yaw", yaw);
+                storage.set("Arena." + arenaName + ".teams." + teamName + ".teamspawn.world", w);
+                storage.set("Arena." + arenaName + ".teams." + teamName + ".teamspawn.x", x);
+                storage.set("Arena." + arenaName + ".teams." + teamName + ".teamspawn.y", y);
+                storage.set("Arena." + arenaName + ".teams." + teamName + ".teamspawn.z", z);
+                storage.set("Arena." + arenaName + ".teams." + teamName + ".teamspawn.pitch", pitch);
+                storage.set("Arena." + arenaName + ".teams." + teamName + ".teamspawn.yaw", yaw);
                 player.sendMessage(Messages.PREFIX + Messages.PLAYER_WRITE_TO_CONFIG);
             } else if (args[0].equalsIgnoreCase("setteambed")) {
-                storage.set("Arena." + arenaName + "." + teamName + ".teambed.world", w);
-                storage.set("Arena." + arenaName + "." + teamName + ".teambed.x", x);
-                storage.set("Arena." + arenaName + "." + teamName + ".teambed.y", y);
-                storage.set("Arena." + arenaName + "." + teamName + ".teambed.z", z);
+                storage.set("Arena." + arenaName + ".teams." + teamName + ".teambed.world", w);
+                storage.set("Arena." + arenaName + ".teams." + teamName + ".teambed.x", x);
+                storage.set("Arena." + arenaName + ".teams." + teamName + ".teambed.y", y);
+                storage.set("Arena." + arenaName + ".teams." + teamName + ".teambed.z", z);
                 player.sendMessage(Messages.PREFIX + Messages.PLAYER_WRITE_TO_CONFIG);
             } else {
                 showHelp(player);
@@ -117,7 +117,7 @@ public class BedWarsCommand implements CommandExecutor {
             String teamName = args[2];
             String color = args[3];
             if (args[0].equalsIgnoreCase("newteam")) {
-                storage.set("Arena." + arenaName + "." + teamName + ".color", color);
+                storage.set("Arena." + arenaName + ".teams." + teamName + ".color", color);
                 player.sendMessage(Messages.PREFIX + Messages.PLAYER_WRITE_TO_CONFIG);
             } else {
                 showHelp(player);
