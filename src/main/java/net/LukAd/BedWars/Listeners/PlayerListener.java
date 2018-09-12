@@ -22,9 +22,7 @@ public class PlayerListener implements Listener {
         Player player = e.getPlayer();
         PlayerData playerData = new PlayerData(player);
 
-        if (playerData != null) {
-            Game game = plugin.getGameManager().findEmpty();
-        } else return;
+        Game game = plugin.getGameManager().findEmpty();
 
     }
 }
