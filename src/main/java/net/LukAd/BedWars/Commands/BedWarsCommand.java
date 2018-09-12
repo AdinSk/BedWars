@@ -1,6 +1,8 @@
 package net.LukAd.BedWars.Commands;
 
 import net.LukAd.BedWars.BedWars;
+import net.LukAd.BedWars.Config.PluginConfig;
+import net.LukAd.BedWars.Utils.Messages;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,12 +16,10 @@ import java.io.File;
 public class BedWarsCommand implements CommandExecutor {
 
     private BedWars plugin;
-    File arena = new File(BedWars.getInstance().getDataFolder(), "arena.yml");
 
     public BedWarsCommand(BedWars plugin) {
         this.plugin = plugin;
     }
-
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!(sender instanceof Player)) {
@@ -27,8 +27,13 @@ public class BedWarsCommand implements CommandExecutor {
             return false;
         }
 
-
         Player player = (Player) sender;
+
+        if (!player.hasPermission("bedwars.admin")) {
+            player.sendMessage(Messages.PREFIX + Messages.PLAYER_NO_PERMISSIONS);
+            return false;
+        }
+
         World w = player.getWorld();
         double x = player.getLocation().getX();
         double y = player.getLocation().getY();
@@ -36,76 +41,87 @@ public class BedWarsCommand implements CommandExecutor {
         float pitch = player.getLocation().getPitch();
         float yaw = player.getLocation().getYaw();
 
-        if (arena.exists()) {
-            FileConfiguration storage = YamlConfiguration.loadConfiguration(arena);
+        FileConfiguration storage = PluginConfig.getArenasConfiguration();
+
+        if (args.length == 0) {
+            showHelp(player);
+            return true;
+        } else if (args.length == 1) {
+            if (args[0].equalsIgnoreCase("setlocallobby")) {
+                storage.set("locallobby.world", w);
+                storage.set("locallobby.x", x);
+                storage.set("locallobby.y", y);
+                storage.set("locallobby.z", z);
+                storage.set("locallobby.pitch", pitch);
+                storage.set("localloby.yaw", yaw);
+            } else {
+                showHelp(player);
+            }
+            return true;
+        } else if (args.length == 2) {
+            String arenaName = args[1];
+            if (args[0].equalsIgnoreCase("create")) {
+                storage.set("Arena.", arenaName);
+            } else if (args[0].equalsIgnoreCase("shopvillager")) {
+                storage.set("Arena." + arenaName  + ".shopvillager.world", w);
+                storage.set("Arena." + arenaName  + ".shopvillager.x", x);
+                storage.set("Arena." + arenaName  + ".shopvillager.y", y);
+                storage.set("Arena." + arenaName  + ".shopvillager.z", z);
+                storage.set("Arena." + arenaName  + ".shopvillager.pitch", pitch);
+                storage.set("Arena." + arenaName  + ".shopvillager.yaw", yaw);
+            } else if (args[0].equalsIgnoreCase("setlobby")) {
+                storage.set("Arena." + arenaName  + ".lobby.world", w);
+                storage.set("Arena." + arenaName  + ".lobby.x", x);
+                storage.set("Arena." + arenaName  + ".lobby.y", y);
+                storage.set("Arena." + arenaName  + ".lobby.z", z);
+                storage.set("Arena." + arenaName  + ".lobby.pitch", pitch);
+                storage.set("Arena." + arenaName  + ".lobby.yaw", yaw);
+            } else {
+                showHelp(player);
+            }
+                return true;
+        } else if (args.length == 3) {
+            String arenaName = args[1];
+            String teamName = args[2];
+            if (args[0].equalsIgnoreCase("setteammaxplayers")) {
+                String maxplayers = args[2];
+                storage.set("Arena." + arenaName + ".maxplayers", maxplayers);
+            } else if (args[0].equalsIgnoreCase("setteamspawn")) {
+                storage.set("Arena." + arenaName + "." + teamName + ".teamspawn.world", w);
+                storage.set("Arena." + arenaName + "." + teamName + ".teamspawn.x", x);
+                storage.set("Arena." + arenaName + "." + teamName + ".teamspawn.y", y);
+                storage.set("Arena." + arenaName + "." + teamName + ".teamspawn.z", z);
+                storage.set("Arena." + arenaName + "." + teamName + ".teamspawn.pitch", pitch);
+                storage.set("Arena." + arenaName + "." + teamName + ".teamspawn.yaw", yaw);
+            } else if (args[0].equalsIgnoreCase("setteambed")) {
+                storage.set("Arena." + arenaName + "." + teamName + ".teambed.world", w);
+                storage.set("Arena." + arenaName + "." + teamName + ".teambed.x", x);
+                storage.set("Arena." + arenaName + "." + teamName + ".teambed.y", y);
+                storage.set("Arena." + arenaName + "." + teamName + ".teambed.z", z);
+            } else {
+                showHelp(player);
+            }
+            return true;
+        } else if (args.length == 4) {
             String arenaName = args[1];
             String teamName = args[2];
             String color = args[3];
-
-            if (args.length == 0) {
+            if (args[0].equalsIgnoreCase("newteam")) {
+                storage.set("Arena." + arenaName + "." + teamName + ".color", color);
+            } else {
                 showHelp(player);
-                return true;
-            } else if (args.length == 1) { // /bw setLocalLobby
-                if (args[0].equalsIgnoreCase("setlocallobby")) {
-                    storage.set("locallobby.world", w);
-                    storage.set("locallobby.x", x);
-                    storage.set("locallobby.y", y);
-                    storage.set("locallobby.z", z);
-                    storage.set("locallobby.pitch", pitch);
-                    storage.set("localloby.yaw", yaw);
-                }
-            } else if (args.length == 2) {   // /bw create <arenaName>
-                if (args[0].equalsIgnoreCase("create")) {
-                    storage.set("Arena.", arenaName);
-                } else if (args[0].equalsIgnoreCase("shopvillager")) {
-                    storage.set("Arena." + arenaName  + ".shopvillager.world", w);
-                    storage.set("Arena." + arenaName  + ".shopvillager.x", x);
-                    storage.set("Arena." + arenaName  + ".shopvillager.y", y);
-                    storage.set("Arena." + arenaName  + ".shopvillager.z", z);
-                    storage.set("Arena." + arenaName  + ".shopvillager.pitch", pitch);
-                    storage.set("Arena." + arenaName  + ".shopvillager.yaw", yaw);
-                } else if (args[0].equalsIgnoreCase("setlobby")) {
-                    storage.set("Arena." + arenaName  + ".lobby.world", w);
-                    storage.set("Arena." + arenaName  + ".lobby.x", x);
-                    storage.set("Arena." + arenaName  + ".lobby.y", y);
-                    storage.set("Arena." + arenaName  + ".lobby.z", z);
-                    storage.set("Arena." + arenaName  + ".lobby.pitch", pitch);
-                    storage.set("Arena." + arenaName  + ".lobby.yaw", yaw);
-                }
-            } else if (args.length == 3) { // /bw setPos <arenaName> <1/2>
-                if (args[0].equalsIgnoreCase("setteammaxplayers")) {
-                    String maxplayers = args[2];
-                    storage.set("Arena." + arenaName + ".maxplayers", maxplayers);
-                } else if (args[0].equalsIgnoreCase("setteamspawn")) {
-                    storage.set("Arena." + arenaName + "." + teamName + ".teamspawn.world", w);
-                    storage.set("Arena." + arenaName + "." + teamName + ".teamspawn.x", x);
-                    storage.set("Arena." + arenaName + "." + teamName + ".teamspawn.y", y);
-                    storage.set("Arena." + arenaName + "." + teamName + ".teamspawn.z", z);
-                    storage.set("Arena." + arenaName + "." + teamName + ".teamspawn.pitch", pitch);
-                    storage.set("Arena." + arenaName + "." + teamName + ".teamspawn.yaw", yaw);
-                } else if (args[0].equalsIgnoreCase("setteambed")) {
-                    storage.set("Arena." + arenaName + "." + teamName + ".teambed.world", w);
-                    storage.set("Arena." + arenaName + "." + teamName + ".teambed.x", x);
-                    storage.set("Arena." + arenaName + "." + teamName + ".teambed.y", y);
-                    storage.set("Arena." + arenaName + "." + teamName + ".teambed.z", z);
-                }
-            } else if (args.length == 4) { // /bw setTeamMaxPlayers <arenaName> <maxPlayers>
-                if (args[0].equalsIgnoreCase("newteam")) {
-                    storage.set("Arena." + arenaName + "." + teamName, color);
-                }
             }
+            return true;
+        } else {
+            showHelp(player);
+            return true;
         }
-
-
-        return false;
     }
 
     private void showHelp(Player player) {
         player.sendMessage("§7===== §a§lHELP §7=====");
         player.sendMessage("§r");
         player.sendMessage("§7/bw setLocalLobby");
-        player.sendMessage("§r");
-        player.sendMessage("§7/bw create <arenaName>");
         player.sendMessage("§r");
         player.sendMessage("§7/bw setLobby <arenaName>");
         player.sendMessage("§r");
@@ -115,16 +131,7 @@ public class BedWarsCommand implements CommandExecutor {
         player.sendMessage("§7/bw setTeamBed <arenaName> <teamName>");
         player.sendMessage("§7/bw addShopVillager <arenaName>");
         player.sendMessage("§7/bw setPos <arenaName> <1/2>");
-
         player.sendMessage("§r");
         player.sendMessage("§7======================");
-    }
-
-    public BedWars getPlugin() {
-        return plugin;
-    }
-
-    public File getArena() {
-        return arena;
     }
 }

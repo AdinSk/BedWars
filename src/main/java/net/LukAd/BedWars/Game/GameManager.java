@@ -25,7 +25,7 @@ public class GameManager {
     }
 
     public void registerGames() {
-        //TODO: load all games from config...
+        //TODO: load all games from Config...
     }
 
     public void registerGame(String arenaName, List<Team> teams, Location lobby, int maxPlayersPerTeam) {
