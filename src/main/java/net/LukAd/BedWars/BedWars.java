@@ -3,6 +3,7 @@ package net.LukAd.BedWars;
 import net.LukAd.BedWars.Commands.BedWarsCommand;
 import net.LukAd.BedWars.Config.PluginConfig;
 import net.LukAd.BedWars.Game.GameManager;
+import net.LukAd.BedWars.Game.Player.PlayerData;
 import net.LukAd.BedWars.Listeners.PlayerListener;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -36,6 +37,7 @@ public class BedWars extends JavaPlugin {
     public GameManager getGameManager() {
         return gameManager;
     }
+
 
     public static BedWars getInstance() {
         return instance;

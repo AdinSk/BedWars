@@ -20,7 +20,8 @@ public class Game {
     private HashMap<Player, PlayerData> players = new HashMap<Player, PlayerData>();
 
     private GameManager gameManager;
-
+    private int playerCount = 0;
+    private int minimumPlayer = 2;
     private Location lobby;
 
     private GameState gameState = GameState.WAITING;
@@ -88,8 +89,10 @@ public class Game {
             player.sendMessage(Messages.PREFIX + Messages.ARENA_FULL);
             return;
         }
+
         PlayerData playerData = new PlayerData(player);
         this.players.put(player, playerData);
+        playerCount++;
 
         broadcastMessage("§7Player §a" + player.getName() + "§7 joined the game! §a(" + players.size() + ")", true);
 
@@ -145,5 +148,17 @@ public class Game {
             if (name.equalsIgnoreCase(team.getTeamName())) return team;
         }
         return null;
+    }
+
+    public int getPlayerCount() {
+        return playerCount;
+    }
+
+    public int getMinimumPlayer() {
+        return minimumPlayer;
+    }
+
+    public boolean controllingMinimumPlayers() {
+        return getPlayerCount() >= getMinimumPlayer();
     }
 }

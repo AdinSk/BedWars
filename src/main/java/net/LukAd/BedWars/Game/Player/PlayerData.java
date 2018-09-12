@@ -1,5 +1,6 @@
 package net.LukAd.BedWars.Game.Player;
 
+import net.LukAd.BedWars.BedWars;
 import net.LukAd.BedWars.Game.Team;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -26,6 +27,8 @@ public class PlayerData {
     private double savedHealth;
     private double savedMaxHealth;
     private Collection<PotionEffect> savedPotionEffects;
+
+
 
     public PlayerData(Player player) {
         this.player = player;
