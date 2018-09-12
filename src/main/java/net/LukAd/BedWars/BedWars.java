@@ -3,6 +3,7 @@ package net.LukAd.BedWars;
 import net.LukAd.BedWars.Commands.BedWarsCommand;
 import net.LukAd.BedWars.Config.PluginConfig;
 import net.LukAd.BedWars.Game.GameManager;
+import net.LukAd.BedWars.Listeners.PlayerListener;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -22,6 +23,7 @@ public class BedWars extends JavaPlugin {
         this.gameManager.registerGames();
 
         Bukkit.getLogger().info("[BedWars] Plugin is Enabled");
+        Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
         getCommand("bw").setExecutor(new BedWarsCommand(this));
     }
 

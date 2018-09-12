@@ -1,6 +1,7 @@
 package net.LukAd.BedWars.Game;
 
 import net.LukAd.BedWars.BedWars;
+import net.LukAd.BedWars.Game.Enums.GameState;
 import net.LukAd.BedWars.Game.Player.PlayerData;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -11,6 +12,7 @@ import java.util.List;
 public class GameManager {
 
     private BedWars plugin;
+    private GameManager instance;
 
     private Location localLobby;
 
@@ -22,6 +24,15 @@ public class GameManager {
 
     public HashMap<String, Game> getGames() {
         return games;
+    }
+
+    public Game findEmpty() {
+        for (Game game : games.values()) {
+            if (game.getGameState() != GameState.PLAYING && !game.isFull()) {
+                return game;
+            }
+        }
+        return null;
     }
 
     public void registerGames() {
@@ -49,5 +60,9 @@ public class GameManager {
             }
         }
         return null;
+    }
+
+    public GameManager getInstance() {
+        return instance;
     }
 }
