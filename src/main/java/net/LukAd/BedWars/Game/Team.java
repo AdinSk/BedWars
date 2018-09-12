@@ -12,6 +12,7 @@ import java.util.List;
 public class Team {
 
     private String teamName;
+    private String color;
 
     private Location bedLocation;
 
@@ -19,10 +20,11 @@ public class Team {
 
     private Location spawnLocation;
 
-    public Team(String teamName, Location bedLocation, Location spawnLocation) {
+    public Team(String teamName, Location bedLocation, Location spawnLocation, String color) {
         this.teamName = teamName;
         this.bedLocation = bedLocation;
         this.spawnLocation = spawnLocation;
+        this.color = color;
     }
 
     public String getTeamName() {
