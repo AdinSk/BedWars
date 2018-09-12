@@ -29,10 +29,12 @@ public class BedWarsCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
+        /* ANDREJU KVULI TOMUTO NEJDE NIC KURWA ZPRAV TO DOPIČE! xddd
         if (!player.hasPermission("bedwars.admin")) {
             player.sendMessage(Messages.PREFIX + Messages.PLAYER_NO_PERMISSIONS);
             return false;
         }
+        */
 
         World w = player.getWorld();
         double x = player.getLocation().getX();
@@ -54,6 +56,7 @@ public class BedWarsCommand implements CommandExecutor {
                 storage.set("locallobby.z", z);
                 storage.set("locallobby.pitch", pitch);
                 storage.set("localloby.yaw", yaw);
+                player.sendMessage(Messages.PREFIX + Messages.PLAYER_WRITE_TO_CONFIG);
             } else {
                 showHelp(player);
             }
@@ -69,6 +72,7 @@ public class BedWarsCommand implements CommandExecutor {
                 storage.set("Arena." + arenaName  + ".shopvillager.z", z);
                 storage.set("Arena." + arenaName  + ".shopvillager.pitch", pitch);
                 storage.set("Arena." + arenaName  + ".shopvillager.yaw", yaw);
+                player.sendMessage(Messages.PREFIX + Messages.PLAYER_WRITE_TO_CONFIG);
             } else if (args[0].equalsIgnoreCase("setlobby")) {
                 storage.set("Arena." + arenaName  + ".lobby.world", w);
                 storage.set("Arena." + arenaName  + ".lobby.x", x);
@@ -76,6 +80,7 @@ public class BedWarsCommand implements CommandExecutor {
                 storage.set("Arena." + arenaName  + ".lobby.z", z);
                 storage.set("Arena." + arenaName  + ".lobby.pitch", pitch);
                 storage.set("Arena." + arenaName  + ".lobby.yaw", yaw);
+                player.sendMessage(Messages.PREFIX + Messages.PLAYER_WRITE_TO_CONFIG);
             } else {
                 showHelp(player);
             }
@@ -86,6 +91,7 @@ public class BedWarsCommand implements CommandExecutor {
             if (args[0].equalsIgnoreCase("setteammaxplayers")) {
                 String maxplayers = args[2];
                 storage.set("Arena." + arenaName + ".maxplayers", maxplayers);
+                player.sendMessage(Messages.PREFIX + Messages.PLAYER_WRITE_TO_CONFIG);
             } else if (args[0].equalsIgnoreCase("setteamspawn")) {
                 storage.set("Arena." + arenaName + "." + teamName + ".teamspawn.world", w);
                 storage.set("Arena." + arenaName + "." + teamName + ".teamspawn.x", x);
@@ -93,11 +99,13 @@ public class BedWarsCommand implements CommandExecutor {
                 storage.set("Arena." + arenaName + "." + teamName + ".teamspawn.z", z);
                 storage.set("Arena." + arenaName + "." + teamName + ".teamspawn.pitch", pitch);
                 storage.set("Arena." + arenaName + "." + teamName + ".teamspawn.yaw", yaw);
+                player.sendMessage(Messages.PREFIX + Messages.PLAYER_WRITE_TO_CONFIG);
             } else if (args[0].equalsIgnoreCase("setteambed")) {
                 storage.set("Arena." + arenaName + "." + teamName + ".teambed.world", w);
                 storage.set("Arena." + arenaName + "." + teamName + ".teambed.x", x);
                 storage.set("Arena." + arenaName + "." + teamName + ".teambed.y", y);
                 storage.set("Arena." + arenaName + "." + teamName + ".teambed.z", z);
+                player.sendMessage(Messages.PREFIX + Messages.PLAYER_WRITE_TO_CONFIG);
             } else {
                 showHelp(player);
             }
@@ -108,6 +116,7 @@ public class BedWarsCommand implements CommandExecutor {
             String color = args[3];
             if (args[0].equalsIgnoreCase("newteam")) {
                 storage.set("Arena." + arenaName + "." + teamName + ".color", color);
+                player.sendMessage(Messages.PREFIX + Messages.PLAYER_WRITE_TO_CONFIG);
             } else {
                 showHelp(player);
             }
