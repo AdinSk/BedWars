@@ -56,6 +56,9 @@ public class BedWarsCommand implements CommandExecutor {
                 storage.set("locallobby.pitch", pitch);
                 storage.set("localloby.yaw", yaw);
                 player.sendMessage(Messages.PREFIX + Messages.PLAYER_WRITE_TO_CONFIG);
+            }else if (args[0].equalsIgnoreCase("save")) {
+                PluginConfig.saveArenasConfiguration();
+                player.sendMessage(Messages.PREFIX + Messages.PLAYER_SAVE_CONFIG);
             } else {
                 showHelp(player);
             }
