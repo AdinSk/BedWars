@@ -1,7 +1,7 @@
 package net.LukAd.BedWars.Commands;
 
 import net.LukAd.BedWars.BedWars;
-import net.LukAd.BedWars.Config.PluginConfig;
+import net.LukAd.BedWars.config.PluginConfig;
 import net.LukAd.BedWars.Utils.Messages;
 import org.bukkit.World;
 import org.bukkit.command.Command;

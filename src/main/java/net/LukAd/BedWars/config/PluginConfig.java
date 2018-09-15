@@ -1,4 +1,4 @@
-package net.LukAd.BedWars.Config;
+package net.LukAd.BedWars.config;
 
 import net.LukAd.BedWars.BedWars;
 import org.bukkit.configuration.file.FileConfiguration;

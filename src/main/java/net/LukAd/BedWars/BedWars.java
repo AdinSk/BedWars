@@ -1,7 +1,7 @@
 package net.LukAd.BedWars;
 
 import net.LukAd.BedWars.Commands.BedWarsCommand;
-import net.LukAd.BedWars.Config.PluginConfig;
+import net.LukAd.BedWars.config.PluginConfig;
 import net.LukAd.BedWars.Game.GameManager;
 import net.LukAd.BedWars.Game.Player.PlayerData;
 import net.LukAd.BedWars.Listeners.PlayerListener;
@@ -17,7 +17,7 @@ public class BedWars extends JavaPlugin {
     private static BedWars instance;
 
     public void onEnable() {
-
+        getCommand("bw").setExecutor(new BedWarsCommand(this));
         PluginConfig.loadConfigs(this);
 
         this.gameManager = new GameManager(this);
