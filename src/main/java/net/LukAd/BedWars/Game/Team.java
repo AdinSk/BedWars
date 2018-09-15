@@ -15,16 +15,18 @@ public class Team {
     private String color;
 
     private Location bedLocation;
+    private Location villagerLocation;
 
     private List<PlayerData> players = new ArrayList<PlayerData>();
 
     private Location spawnLocation;
 
-    public Team(String teamName, Location bedLocation, Location spawnLocation, String color) {
+    public Team(String teamName, Location bedLocation, Location spawnLocation, String color, Location villagerLocation) {
         this.teamName = teamName;
         this.bedLocation = bedLocation;
         this.spawnLocation = spawnLocation;
         this.color = color;
+        this.villagerLocation = villagerLocation;
     }
 
     public String getTeamName() {
