@@ -1,4 +1,4 @@
-package net.LukAd.BedWars.Config;
+package net.LukAd.BedWars.config;
 
 import net.LukAd.BedWars.BedWars;
 import net.LukAd.BedWars.Config.Interfaces.ArenaDatabase;
@@ -25,7 +25,7 @@ public class ArenaFileStorage implements ArenaDatabase {
     public ArenaFileStorage(BedWars plugin) {
         this.plugin = plugin;
         this.gameManager = plugin.getGameManager();
-        storage = PluginConfig.getArenasConfiguration();
+        storage = net.LukAd.BedWars.Config.PluginConfig.getArenasConfiguration();
     }
 
     @Override
@@ -38,7 +38,16 @@ public class ArenaFileStorage implements ArenaDatabase {
             int maxPlayersPerTeam = storage.getInt("arenas." + arenaName + ".maxPlayersPerTeam");
             List<Team> teamList = new ArrayList<>();
 
-            Location lobby = null; //DOPLNIT
+
+            double x3 = storage.getDouble("arenas." + arenaName + ".spawn.x");
+            double y3 = storage.getDouble("arenas." + arenaName +".spawn.y");
+            double z3 = storage.getDouble("arenas." + arenaName + ".spawn.z");
+            float pitch3 = (float) storage.getDouble("arenas." + arenaName + ".spawn.pitch");
+            float yaw3 = (float) storage.getDouble("arenas." + arenaName + ".spawn.yaw");
+            World world3 =  Bukkit.getWorld(storage.getString("arenas." + arenaName + ".spawn.world"));
+            Location lobby = new Location(world3, x3, y3, z3);
+            lobby.setPitch(pitch3);
+            lobby.setYaw(yaw3);
 
             for (String team : storage.getConfigurationSection("arenas." + arenaName + ".teams").getKeys(false)) {
                 String teamName = team;

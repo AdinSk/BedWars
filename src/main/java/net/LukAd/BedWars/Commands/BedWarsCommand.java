@@ -67,21 +67,13 @@ public class BedWarsCommand implements CommandExecutor {
             String arenaName = args[1];
             if (args[0].equalsIgnoreCase("create")) {
                 storage.set("Arena.", arenaName);
-            } else if (args[0].equalsIgnoreCase("addshopvillager")) {
-                storage.set("Arena." + arenaName  + ".shopvillager.world", w);
-                storage.set("Arena." + arenaName  + ".shopvillager.x", x);
-                storage.set("Arena." + arenaName  + ".shopvillager.y", y);
-                storage.set("Arena." + arenaName  + ".shopvillager.z", z);
-                storage.set("Arena." + arenaName  + ".shopvillager.pitch", pitch);
-                storage.set("Arena." + arenaName  + ".shopvillager.yaw", yaw);
-                player.sendMessage(Messages.PREFIX + Messages.PLAYER_WRITE_TO_CONFIG);
             } else if (args[0].equalsIgnoreCase("setlobby")) {
-                storage.set("Arena." + arenaName  + ".lobby.world", w);
-                storage.set("Arena." + arenaName  + ".lobby.x", x);
-                storage.set("Arena." + arenaName  + ".lobby.y", y);
-                storage.set("Arena." + arenaName  + ".lobby.z", z);
-                storage.set("Arena." + arenaName  + ".lobby.pitch", pitch);
-                storage.set("Arena." + arenaName  + ".lobby.yaw", yaw);
+                storage.set("Arena." + "lobby.world", w);
+                storage.set("Arena." + "lobby.x", x);
+                storage.set("Arena." + "lobby.y", y);
+                storage.set("Arena." + "lobby.z", z);
+                storage.set("Arena." + "lobby.pitch", pitch);
+                storage.set("Arena." + "lobby.yaw", yaw);
                 player.sendMessage(Messages.PREFIX + Messages.PLAYER_WRITE_TO_CONFIG);
             } else {
                 showHelp(player);
@@ -107,6 +99,14 @@ public class BedWarsCommand implements CommandExecutor {
                 storage.set("Arena." + arenaName + ".teams." + teamName + ".teambed.x", x);
                 storage.set("Arena." + arenaName + ".teams." + teamName + ".teambed.y", y);
                 storage.set("Arena." + arenaName + ".teams." + teamName + ".teambed.z", z);
+                player.sendMessage(Messages.PREFIX + Messages.PLAYER_WRITE_TO_CONFIG);
+            } else if (args[0].equalsIgnoreCase("addshopvillager")) {
+                storage.set("Arena." + arenaName  +  ".teams." + teamName + ".shopvillager.world", w);
+                storage.set("Arena." + arenaName  +  ".teams." + teamName + ".shopvillager.x", x);
+                storage.set("Arena." + arenaName  +  ".teams." + teamName + ".shopvillager.y", y);
+                storage.set("Arena." + arenaName  +  ".teams." + teamName + ".shopvillager.z", z);
+                storage.set("Arena." + arenaName  +  ".teams." + teamName + ".shopvillager.pitch", pitch);
+                storage.set("Arena." + arenaName  +  ".teams." + teamName + ".shopvillager.yaw", yaw);
                 player.sendMessage(Messages.PREFIX + Messages.PLAYER_WRITE_TO_CONFIG);
             } else {
                 showHelp(player);

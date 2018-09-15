@@ -1,10 +1,11 @@
 package net.LukAd.BedWars.Game;
 
 import net.LukAd.BedWars.BedWars;
-import net.LukAd.BedWars.Config.ArenaFileStorage;
+import net.LukAd.BedWars.config.ArenaFileStorage;
 import net.LukAd.BedWars.Config.Interfaces.ArenaDatabase;
 import net.LukAd.BedWars.Game.Enums.GameState;
 import net.LukAd.BedWars.Game.Player.PlayerData;
+import net.LukAd.BedWars.config.ArenaFileStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
