@@ -17,6 +17,10 @@ public class BedWars extends JavaPlugin {
     private static BedWars instance;
 
     public void onEnable() {
+        if (!getDataFolder().exists()) {
+            getDataFolder().mkdir();
+        }
+
         PluginConfig.loadConfigs(this);
 
         this.gameManager = new GameManager(this);

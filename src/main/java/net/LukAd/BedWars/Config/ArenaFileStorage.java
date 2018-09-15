@@ -1,7 +1,8 @@
-package net.LukAd.BedWars.config;
+package net.LukAd.BedWars.Config;
 
 import net.LukAd.BedWars.BedWars;
 import net.LukAd.BedWars.Config.Interfaces.ArenaDatabase;
+import net.LukAd.BedWars.Config.PluginConfig;
 import net.LukAd.BedWars.Game.Game;
 import net.LukAd.BedWars.Game.GameManager;
 import net.LukAd.BedWars.Game.Team;
@@ -25,7 +26,7 @@ public class ArenaFileStorage implements ArenaDatabase {
     public ArenaFileStorage(BedWars plugin) {
         this.plugin = plugin;
         this.gameManager = plugin.getGameManager();
-        storage = net.LukAd.BedWars.config.PluginConfig.getArenasConfiguration();
+        storage = PluginConfig.getArenasConfiguration();
     }
 
     @Override
