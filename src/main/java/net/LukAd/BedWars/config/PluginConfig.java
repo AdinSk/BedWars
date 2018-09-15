@@ -1,4 +1,4 @@
-package net.LukAd.BedWars.config;
+package net.LukAd.BedWars.Config;
 
 import net.LukAd.BedWars.BedWars;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -82,5 +82,4 @@ public class PluginConfig {
             plugin.reloadConfig();
         }
     }
-
 }
