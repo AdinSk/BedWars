@@ -1,6 +1,8 @@
 package net.LukAd.BedWars.Game;
 
 import net.LukAd.BedWars.BedWars;
+import net.LukAd.BedWars.Config.ArenaFileStorage;
+import net.LukAd.BedWars.Config.Interfaces.ArenaDatabase;
 import net.LukAd.BedWars.Game.Enums.GameState;
 import net.LukAd.BedWars.Game.Player.PlayerData;
 import org.bukkit.Bukkit;
@@ -16,10 +18,17 @@ public class GameManager {
     private BedWars plugin;
     private GameManager instance;
 
+    private ArenaDatabase arenaDatabase;
+
     private Location localLobby;
 
     public GameManager(BedWars plugin) {
         this.plugin = plugin;
+        arenaDatabase = new ArenaFileStorage(plugin);
+    }
+
+    public ArenaDatabase getArenaDatabase() {
+        return arenaDatabase;
     }
 
     private HashMap<String, Game> games = new HashMap<String, Game>();
