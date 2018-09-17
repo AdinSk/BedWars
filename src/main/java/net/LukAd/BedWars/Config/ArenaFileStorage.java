@@ -103,14 +103,14 @@ public class ArenaFileStorage implements ArenaDatabase {
     @Override
     public boolean saveArena(Game game) {
 
-        storage.set("locallobby.world", game.getLocalLobby().getWorld());
+        storage.set("locallobby.world", game.getLocalLobby().getWorld().getName());
         storage.set("locallobby.x", game.getLocalLobby().getX());
         storage.set("locallobby.y", game.getLocalLobby().getY());
         storage.set("locallobby.z", game.getLocalLobby().getZ());
         storage.set("locallobby.pitch", game.getLocalLobby().getPitch());
         storage.set("locallobby.yaw", game.getLocalLobby().getYaw());
 
-        storage.set("arenas." + game.getName() + "lobby.world", game.getLobby().getWorld());
+        storage.set("arenas." + game.getName() + "lobby.world", game.getLobby().getWorld().getName());
         storage.set("arenas." + game.getName() + "lobby.x", game.getLobby().getX());
         storage.set("arenas." + game.getName() + "lobby.y", game.getLobby().getY());
         storage.set("arenas." + game.getName() + "lobby.z", game.getLobby().getZ());
@@ -122,19 +122,19 @@ public class ArenaFileStorage implements ArenaDatabase {
 
             storage.set("arenas." + game.getName() + ".maxplayers", game.getMaxPlayersPerTeam());
 
-            storage.set("arenas." + game.getName() + ".teams." + team.getTeamName() + ".spawn.world", team.getSpawnLocation().getWorld());
+            storage.set("arenas." + game.getName() + ".teams." + team.getTeamName() + ".spawn.world", team.getSpawnLocation().getWorld().getName());
             storage.set("arenas." + game.getName() + ".teams." + team.getTeamName() + ".spawn.x", team.getSpawnLocation().getX());
             storage.set("arenas." + game.getName() + ".teams." + team.getTeamName() + ".spawn.y", team.getSpawnLocation().getY());
             storage.set("arenas." + game.getName() + ".teams." + team.getTeamName() + ".spawn.z", team.getSpawnLocation().getZ());
             storage.set("arenas." + game.getName() + ".teams." + team.getTeamName() + ".spawn.pitch", team.getSpawnLocation().getPitch());
             storage.set("arenas." + game.getName() + ".teams." + team.getTeamName() + ".spawn.yaw", team.getSpawnLocation().getYaw());
 
-            storage.set("arenas." + game.getName() + ".teams." + team.getTeamName() + ".bed.world", team.getSpawnLocation().getWorld());
+            storage.set("arenas." + game.getName() + ".teams." + team.getTeamName() + ".bed.world", team.getSpawnLocation().getWorld().getName());
             storage.set("arenas." + game.getName() + ".teams." + team.getTeamName() + ".bed.x", team.getSpawnLocation().getX());
             storage.set("arenas." + game.getName() + ".teams." + team.getTeamName() + ".bed.y", team.getSpawnLocation().getY());
             storage.set("arenas." + game.getName() + ".teams." + team.getTeamName() + ".bed.z", team.getSpawnLocation().getZ());
 
-            storage.set("Arena." + game.getName() + ".teams." + team.getTeamName() + ".villager.world", team.getVillagerLocation().getWorld());
+            storage.set("Arena." + game.getName() + ".teams." + team.getTeamName() + ".villager.world", team.getVillagerLocation().getWorld().getName());
             storage.set("Arena." + game.getName() + ".teams." + team.getTeamName() + ".villager.x", team.getVillagerLocation().getX());
             storage.set("Arena." + game.getName() + ".teams." + team.getTeamName() + ".villager.y", team.getVillagerLocation().getY());
             storage.set("Arena." + game.getName() + ".teams." + team.getTeamName() + ".villager.z", team.getVillagerLocation().getZ());

@@ -11,7 +11,7 @@ public class Messages {
     public static final String PLAYER_NO_PERMISSIONS = "§cYou dont have permissions!";
     public static final String PLAYER_WRITE_TO_CONFIG = "§cYou succesfully write this to Config!";
     public static final String PLAYER_SAVE_CONFIG = "§cYou succesfully save configs!";
-
+    public static final String PLAYER_CREATE_ARENA = "§cYou succesfully create arena!";
 
 
 

@@ -66,7 +66,7 @@ public class BedWarsCommand implements CommandExecutor {
             if (args[0].equalsIgnoreCase("createarena")) {
                 String arenaName = args[1];
 
-                // public Game(GameManager gameManager, String name, List<Team> teams, Location lobby, int maxPlayersPerTeam) {
+                player.sendMessage(Messages.PREFIX + Messages.PLAYER_CREATE_ARENA);
                 Game game = new Game(null, arenaName, new ArrayList<>(), null, 0);
                 games.put(arenaName, game);
 
@@ -123,7 +123,7 @@ public class BedWarsCommand implements CommandExecutor {
                 }
             } else if (args[0].equalsIgnoreCase("setteamspawn")) {
 
-                if (games.containsKey(arenaName) && games.containsKey(teamName)) {
+                if (games.containsKey(arenaName)) {
                     Game game = games.get(arenaName);
                     Team team = game.getTeamByName(teamName);
 
@@ -134,7 +134,7 @@ public class BedWarsCommand implements CommandExecutor {
                 }
             } else if (args[0].equalsIgnoreCase("setteambed")) {
 
-                if (games.containsKey(arenaName) && games.containsKey(teamName)) {
+                if (games.containsKey(arenaName)) {
                     Game game = games.get(arenaName);
                     Team team = game.getTeamByName(teamName);
 
@@ -147,7 +147,7 @@ public class BedWarsCommand implements CommandExecutor {
 
             } else if (args[0].equalsIgnoreCase("addshopvillager")) {
 
-                if (games.containsKey(arenaName) && games.containsKey(teamName)) {
+                if (games.containsKey(arenaName)) {
                     Game game = games.get(arenaName);
                     Team team = game.getTeamByName(teamName);
 
@@ -167,7 +167,7 @@ public class BedWarsCommand implements CommandExecutor {
             String color = args[3];
             if (args[0].equalsIgnoreCase("newteam")) {
 
-                if (games.containsKey(arenaName) && !games.containsKey(teamName)) {
+                if (games.containsKey(arenaName)) {
                     Game game = games.get(arenaName);
                     Team team = new Team(teamName, null, null, color, null);
                     game.getTeams().add(team);
@@ -192,8 +192,8 @@ public class BedWarsCommand implements CommandExecutor {
     private void showHelp(Player player) {
         player.sendMessage("§7===== §a§lHELP §7=====");
         player.sendMessage("§r");
-        player.sendMessage("§7/bw setLocalLobby");
-        player.sendMessage("§r§7/bw createarena");
+        player.sendMessage("§7/bw setLocalLobby <arenaName>");
+        player.sendMessage("§r§7/bw createarena <arenaName>");
         player.sendMessage("§r");
         player.sendMessage("§7/bw setLobby <arenaName>");
         player.sendMessage("§r");
@@ -201,8 +201,9 @@ public class BedWarsCommand implements CommandExecutor {
         player.sendMessage("§7/bw setTeamMaxPlayers <arenaName> <maxPlayers>");
         player.sendMessage("§7/bw setTeamSpawn <arenaName> <teamName>");
         player.sendMessage("§7/bw setTeamBed <arenaName> <teamName>");
-        player.sendMessage("§7/bw addShopVillager <arenaName>");
+        player.sendMessage("§7/bw addShopVillager <arenaName> <teamName>");
         player.sendMessage("§7/bw setPos <arenaName> <1/2>");
+        player.sendMessage("§7/bw save <arenaName>");
         player.sendMessage("§r");
         player.sendMessage("§7======================");
     }
