@@ -10,7 +10,7 @@ public interface ArenaDatabase {
 
     HashMap<String, Game> findAllArenas();
 
-    boolean saveArena(Game game, Team team);
+    boolean saveArena(Game game);
 
     Game getArenaByName(String name);
 

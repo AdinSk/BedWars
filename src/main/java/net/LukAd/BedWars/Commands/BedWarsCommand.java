@@ -76,7 +76,7 @@ public class BedWarsCommand implements CommandExecutor {
                 if (games.containsKey(arenaName)) {
                     Game game = games.get(arenaName);
                     game.setLocalLobby(playerloc);
-                    plugin.getGameManager().getArenaDatabase().saveArena(game, null);
+
                     player.sendMessage(Messages.PREFIX + Messages.PLAYER_SAVE_CONFIG);
                 } else {
                     player.sendMessage("§cThis arena is not created!");
@@ -86,7 +86,7 @@ public class BedWarsCommand implements CommandExecutor {
                 String arenaName = args[1];
                 if (games.containsKey(arenaName)) {
                     Game game = games.get(arenaName);
-                    plugin.getGameManager().getArenaDatabase().saveArena(game, null);
+                    plugin.getGameManager().getArenaDatabase().saveArena(game);
                     player.sendMessage(Messages.PREFIX + Messages.PLAYER_SAVE_CONFIG);
                 } else {
                     player.sendMessage("§cThis arena is not created!");
@@ -97,7 +97,7 @@ public class BedWarsCommand implements CommandExecutor {
                 if (games.containsKey(arenaName)) {
                     Game game = games.get(arenaName);
                     game.setLobby(playerloc);
-                    plugin.getGameManager().getArenaDatabase().saveArena(game, null);
+
                     player.sendMessage(Messages.PREFIX + Messages.PLAYER_SAVE_CONFIG);
                 } else {
                     player.sendMessage("§cThis arena is not created!");
@@ -116,7 +116,7 @@ public class BedWarsCommand implements CommandExecutor {
                     Game game = games.get(arenaName);
 
                     game.setMaxPlayersPerTeam(Integer.valueOf(maxplayers));
-                    plugin.getGameManager().getArenaDatabase().saveArena(game, null);
+
                     player.sendMessage(Messages.PREFIX + Messages.PLAYER_SAVE_CONFIG);
                 } else {
                     player.sendMessage("§cThis arena is not created!");
@@ -128,8 +128,6 @@ public class BedWarsCommand implements CommandExecutor {
                     Team team = game.getTeamByName(teamName);
 
                     team.setSpawnLocation(playerloc);
-
-                    plugin.getGameManager().getArenaDatabase().saveArena(game, team);
                     player.sendMessage(Messages.PREFIX + Messages.PLAYER_SAVE_CONFIG);
                 } else {
                     player.sendMessage("§cThis arena is not created!");
@@ -142,7 +140,6 @@ public class BedWarsCommand implements CommandExecutor {
 
                     team.setBedLocation(playerloc);
 
-                    plugin.getGameManager().getArenaDatabase().saveArena(game, team);
                     player.sendMessage(Messages.PREFIX + Messages.PLAYER_SAVE_CONFIG);
                 } else {
                     player.sendMessage("§cThis arena is not created!");
@@ -156,7 +153,6 @@ public class BedWarsCommand implements CommandExecutor {
 
                     team.setVillagerLocation(playerloc);
 
-                    plugin.getGameManager().getArenaDatabase().saveArena(game, team);
                     player.sendMessage(Messages.PREFIX + Messages.PLAYER_SAVE_CONFIG);
                 } else {
                     player.sendMessage("§cThis arena is not created!");
@@ -174,9 +170,7 @@ public class BedWarsCommand implements CommandExecutor {
                 if (games.containsKey(arenaName) && !games.containsKey(teamName)) {
                     Game game = games.get(arenaName);
                     Team team = new Team(teamName, null, null, color, null);
-
                     game.getTeams().add(team);
-                    plugin.getGameManager().getArenaDatabase().saveArena(game, team);
                     player.sendMessage(Messages.PREFIX + Messages.PLAYER_SAVE_CONFIG);
                 } else {
                     player.sendMessage("§cThis arena is not created!");
