@@ -1,7 +1,6 @@
 package net.LukAd.BedWars.Commands;
 
 import net.LukAd.BedWars.BedWars;
-import net.LukAd.BedWars.config.PluginConfig;
 import net.LukAd.BedWars.Utils.Messages;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -42,7 +41,7 @@ public class BedWarsCommand implements CommandExecutor {
         float pitch = player.getLocation().getPitch();
         float yaw = player.getLocation().getYaw();
 
-        FileConfiguration storage = PluginConfig.getArenasConfiguration();
+        FileConfiguration storage = net.LukAd.BedWars.Config.PluginConfig.getArenasConfiguration();
 
         if (args.length == 0) {
             showHelp(player);
@@ -57,7 +56,7 @@ public class BedWarsCommand implements CommandExecutor {
                 storage.set("localloby.yaw", yaw);
                 player.sendMessage(Messages.PREFIX + Messages.PLAYER_WRITE_TO_CONFIG);
             }else if (args[0].equalsIgnoreCase("save")) {
-                PluginConfig.saveArenasConfiguration();
+                net.LukAd.BedWars.Config.PluginConfig.saveArenasConfiguration();
                 player.sendMessage(Messages.PREFIX + Messages.PLAYER_SAVE_CONFIG);
             } else {
                 showHelp(player);
