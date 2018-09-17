@@ -14,14 +14,14 @@ import java.util.List;
 
 public class Game {
 
-    private String name;
+    private String arenaName;
 
     private List<Team> teams = new ArrayList<Team>();
     private HashMap<Player, PlayerData> players = new HashMap<Player, PlayerData>();
 
     private GameManager gameManager;
     private int playerCount = 0;
-    private int minimumPlayer = 2;
+    private Location localLobby;
     private Location lobby;
 
     private GameState gameState = GameState.WAITING;
@@ -30,15 +30,12 @@ public class Game {
 
     public Game(GameManager gameManager, String name, List<Team> teams, Location lobby, int maxPlayersPerTeam) {
         this.gameManager = gameManager;
-        this.name = name;
+        this.arenaName = name;
         this.teams = teams;
-        this.lobby = lobby;
+        this.localLobby = lobby;
         this.maxPlayersPerTeam = maxPlayersPerTeam;
     }
 
-    public void initGame() {
-
-    }
 
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
@@ -49,15 +46,19 @@ public class Game {
     }
 
     public String getName() {
-        return name;
+        return arenaName;
     }
 
     public List<Team> getTeams() {
         return teams;
     }
 
-    public Location getLobby() {
-        return lobby;
+    public Location getLocalLobby() {
+        return localLobby;
+    }
+
+    public void setLocalLobby(Location localLobby) {
+        this.localLobby = localLobby;
     }
 
     public int getMaxPlayersPerTeam() {
@@ -158,11 +159,45 @@ public class Game {
         return playerCount;
     }
 
-    public int getMinimumPlayer() {
-        return minimumPlayer;
+
+    public void setarenaName(String name) {
+        this.arenaName = name;
     }
 
-    public boolean controllingMinimumPlayers() {
-        return getPlayerCount() >= getMinimumPlayer();
+    public void setTeams(List<Team> teams) {
+        this.teams = teams;
+    }
+
+    public void setPlayers(HashMap<Player, PlayerData> players) {
+        this.players = players;
+    }
+
+    public void setGameManager(GameManager gameManager) {
+        this.gameManager = gameManager;
+    }
+
+    public void setPlayerCount(int playerCount) {
+        this.playerCount = playerCount;
+    }
+
+
+    public void setMaxPlayersPerTeam(int maxPlayersPerTeam) {
+        this.maxPlayersPerTeam = maxPlayersPerTeam;
+    }
+
+    public String getArenaName() {
+        return arenaName;
+    }
+
+    public void setArenaName(String arenaName) {
+        this.arenaName = arenaName;
+    }
+
+    public Location getLobby() {
+        return lobby;
+    }
+
+    public void setLobby(Location lobby) {
+        this.lobby = lobby;
     }
 }

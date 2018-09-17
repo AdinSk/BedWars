@@ -83,4 +83,35 @@ public class Team {
         }
     }
 
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setBedLocation(Location bedLocation) {
+        this.bedLocation = bedLocation;
+    }
+
+    public Location getVillagerLocation() {
+        return villagerLocation;
+    }
+
+    public void setVillagerLocation(Location villagerLocation) {
+        this.villagerLocation = villagerLocation;
+    }
+
+    public void setPlayers(List<PlayerData> players) {
+        this.players = players;
+    }
+
+    public void setSpawnLocation(Location spawnLocation) {
+        this.spawnLocation = spawnLocation;
+    }
 }

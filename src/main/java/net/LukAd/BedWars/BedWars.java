@@ -15,6 +15,8 @@ public class BedWars extends JavaPlugin {
 
     private GameManager gameManager;
     private static BedWars instance;
+    private BedWarsCommand bedWarsCommand;
+
 
     public void onEnable() {
         if (!getDataFolder().exists()) {
@@ -44,5 +46,9 @@ public class BedWars extends JavaPlugin {
 
     public static BedWars getInstance() {
         return instance;
+    }
+
+    public BedWarsCommand getBedWarsCommand() {
+        return bedWarsCommand;
     }
 }

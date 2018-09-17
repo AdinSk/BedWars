@@ -1,7 +1,11 @@
 package net.LukAd.BedWars.Commands;
 
 import net.LukAd.BedWars.BedWars;
+import net.LukAd.BedWars.Config.PluginConfig;
+import net.LukAd.BedWars.Game.Game;
+import net.LukAd.BedWars.Game.Team;
 import net.LukAd.BedWars.Utils.Messages;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -11,10 +15,14 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class BedWarsCommand implements CommandExecutor {
 
     private BedWars plugin;
+    private HashMap<String, Game> games = new HashMap<String, Game>();
+
 
     public BedWarsCommand(BedWars plugin) {
         this.plugin = plugin;
@@ -28,6 +36,8 @@ public class BedWarsCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
+        //plugin.getGameManager().getArenaDatabase().saveArena(nazev_hashMapu.get(NAZEV_ARENY));
+
         if (!player.isOp()) {
             player.sendMessage(Messages.PREFIX + Messages.PLAYER_NO_PERMISSIONS);
             return false;
@@ -40,6 +50,9 @@ public class BedWarsCommand implements CommandExecutor {
         double z = player.getLocation().getZ();
         float pitch = player.getLocation().getPitch();
         float yaw = player.getLocation().getYaw();
+        Location playerloc = new Location(player.getWorld(), x, y, z);
+        playerloc.setPitch(pitch);
+        playerloc.setYaw(yaw);
 
         FileConfiguration storage = net.LukAd.BedWars.Config.PluginConfig.getArenasConfiguration();
 
@@ -47,66 +60,107 @@ public class BedWarsCommand implements CommandExecutor {
             showHelp(player);
             return true;
         } else if (args.length == 1) {
-            if (args[0].equalsIgnoreCase("setlocallobby")) {
-                storage.set("locallobby.world", w);
-                storage.set("locallobby.x", x);
-                storage.set("locallobby.y", y);
-                storage.set("locallobby.z", z);
-                storage.set("locallobby.pitch", pitch);
-                storage.set("localloby.yaw", yaw);
-                player.sendMessage(Messages.PREFIX + Messages.PLAYER_WRITE_TO_CONFIG);
-            }else if (args[0].equalsIgnoreCase("save")) {
-                net.LukAd.BedWars.Config.PluginConfig.saveArenasConfiguration();
-                player.sendMessage(Messages.PREFIX + Messages.PLAYER_SAVE_CONFIG);
+                showHelp(player);
+            return true;
+        } else if (args.length == 2) {
+            if (args[0].equalsIgnoreCase("createarena")) {
+                String arenaName = args[1];
+
+                // public Game(GameManager gameManager, String name, List<Team> teams, Location lobby, int maxPlayersPerTeam) {
+                Game game = new Game(null, arenaName, new ArrayList<>(), null, 0);
+                games.put(arenaName, game);
+
+            } else if (args[0].equalsIgnoreCase("setlocallobby")) {
+                String arenaName = args[1];
+
+                if (games.containsKey(arenaName)) {
+                    Game game = games.get(arenaName);
+                    game.setLocalLobby(playerloc);
+                    plugin.getGameManager().getArenaDatabase().saveArena(game, null);
+                    player.sendMessage(Messages.PREFIX + Messages.PLAYER_SAVE_CONFIG);
+                } else {
+                    player.sendMessage("§cThis arena is not created!");
+                }
+
+            } else if (args[0].equalsIgnoreCase("save")) {
+                String arenaName = args[1];
+                if (games.containsKey(arenaName)) {
+                    Game game = games.get(arenaName);
+                    plugin.getGameManager().getArenaDatabase().saveArena(game, null);
+                    player.sendMessage(Messages.PREFIX + Messages.PLAYER_SAVE_CONFIG);
+                } else {
+                    player.sendMessage("§cThis arena is not created!");
+                }
+            } else if (args[0].equalsIgnoreCase("setlobby")) {
+                    String arenaName = args[1];
+
+                if (games.containsKey(arenaName)) {
+                    Game game = games.get(arenaName);
+                    game.setLobby(playerloc);
+                    plugin.getGameManager().getArenaDatabase().saveArena(game, null);
+                    player.sendMessage(Messages.PREFIX + Messages.PLAYER_SAVE_CONFIG);
+                } else {
+                    player.sendMessage("§cThis arena is not created!");
+                }
             } else {
                 showHelp(player);
             }
             return true;
-        } else if (args.length == 2) {
-            String arenaName = args[1];
-            if (args[0].equalsIgnoreCase("create")) {
-                storage.set("Arena.", arenaName);
-            } else if (args[0].equalsIgnoreCase("setlobby")) {
-                storage.set("Arena." + "lobby.world", w);
-                storage.set("Arena." + "lobby.x", x);
-                storage.set("Arena." + "lobby.y", y);
-                storage.set("Arena." + "lobby.z", z);
-                storage.set("Arena." + "lobby.pitch", pitch);
-                storage.set("Arena." + "lobby.yaw", yaw);
-                player.sendMessage(Messages.PREFIX + Messages.PLAYER_WRITE_TO_CONFIG);
-            } else {
-                showHelp(player);
-            }
-                return true;
         } else if (args.length == 3) {
             String arenaName = args[1];
             String teamName = args[2];
             if (args[0].equalsIgnoreCase("setteammaxplayers")) {
                 String maxplayers = args[2];
-                storage.set("Arena." + arenaName + ".maxplayers", maxplayers);
-                player.sendMessage(Messages.PREFIX + Messages.PLAYER_WRITE_TO_CONFIG);
+
+                if (games.containsKey(arenaName)) {
+                    Game game = games.get(arenaName);
+
+                    game.setMaxPlayersPerTeam(Integer.valueOf(maxplayers));
+                    plugin.getGameManager().getArenaDatabase().saveArena(game, null);
+                    player.sendMessage(Messages.PREFIX + Messages.PLAYER_SAVE_CONFIG);
+                } else {
+                    player.sendMessage("§cThis arena is not created!");
+                }
             } else if (args[0].equalsIgnoreCase("setteamspawn")) {
-                storage.set("Arena." + arenaName + ".teams." + teamName + ".teamspawn.world", w);
-                storage.set("Arena." + arenaName + ".teams." + teamName + ".teamspawn.x", x);
-                storage.set("Arena." + arenaName + ".teams." + teamName + ".teamspawn.y", y);
-                storage.set("Arena." + arenaName + ".teams." + teamName + ".teamspawn.z", z);
-                storage.set("Arena." + arenaName + ".teams." + teamName + ".teamspawn.pitch", pitch);
-                storage.set("Arena." + arenaName + ".teams." + teamName + ".teamspawn.yaw", yaw);
-                player.sendMessage(Messages.PREFIX + Messages.PLAYER_WRITE_TO_CONFIG);
+
+                if (games.containsKey(arenaName) && games.containsKey(teamName)) {
+                    Game game = games.get(arenaName);
+                    Team team = game.getTeamByName(teamName);
+
+                    team.setSpawnLocation(playerloc);
+
+                    plugin.getGameManager().getArenaDatabase().saveArena(game, team);
+                    player.sendMessage(Messages.PREFIX + Messages.PLAYER_SAVE_CONFIG);
+                } else {
+                    player.sendMessage("§cThis arena is not created!");
+                }
             } else if (args[0].equalsIgnoreCase("setteambed")) {
-                storage.set("Arena." + arenaName + ".teams." + teamName + ".teambed.world", w);
-                storage.set("Arena." + arenaName + ".teams." + teamName + ".teambed.x", x);
-                storage.set("Arena." + arenaName + ".teams." + teamName + ".teambed.y", y);
-                storage.set("Arena." + arenaName + ".teams." + teamName + ".teambed.z", z);
-                player.sendMessage(Messages.PREFIX + Messages.PLAYER_WRITE_TO_CONFIG);
+
+                if (games.containsKey(arenaName) && games.containsKey(teamName)) {
+                    Game game = games.get(arenaName);
+                    Team team = game.getTeamByName(teamName);
+
+                    team.setBedLocation(playerloc);
+
+                    plugin.getGameManager().getArenaDatabase().saveArena(game, team);
+                    player.sendMessage(Messages.PREFIX + Messages.PLAYER_SAVE_CONFIG);
+                } else {
+                    player.sendMessage("§cThis arena is not created!");
+                }
+
             } else if (args[0].equalsIgnoreCase("addshopvillager")) {
-                storage.set("Arena." + arenaName  +  ".teams." + teamName + ".shopvillager.world", w);
-                storage.set("Arena." + arenaName  +  ".teams." + teamName + ".shopvillager.x", x);
-                storage.set("Arena." + arenaName  +  ".teams." + teamName + ".shopvillager.y", y);
-                storage.set("Arena." + arenaName  +  ".teams." + teamName + ".shopvillager.z", z);
-                storage.set("Arena." + arenaName  +  ".teams." + teamName + ".shopvillager.pitch", pitch);
-                storage.set("Arena." + arenaName  +  ".teams." + teamName + ".shopvillager.yaw", yaw);
-                player.sendMessage(Messages.PREFIX + Messages.PLAYER_WRITE_TO_CONFIG);
+
+                if (games.containsKey(arenaName) && games.containsKey(teamName)) {
+                    Game game = games.get(arenaName);
+                    Team team = game.getTeamByName(teamName);
+
+                    team.setVillagerLocation(playerloc);
+
+                    plugin.getGameManager().getArenaDatabase().saveArena(game, team);
+                    player.sendMessage(Messages.PREFIX + Messages.PLAYER_SAVE_CONFIG);
+                } else {
+                    player.sendMessage("§cThis arena is not created!");
+                }
             } else {
                 showHelp(player);
             }
@@ -116,8 +170,17 @@ public class BedWarsCommand implements CommandExecutor {
             String teamName = args[2];
             String color = args[3];
             if (args[0].equalsIgnoreCase("newteam")) {
-                storage.set("Arena." + arenaName + ".teams." + teamName + ".color", color);
-                player.sendMessage(Messages.PREFIX + Messages.PLAYER_WRITE_TO_CONFIG);
+
+                if (games.containsKey(arenaName) && !games.containsKey(teamName)) {
+                    Game game = games.get(arenaName);
+                    Team team = new Team(teamName, null, null, color, null);
+
+                    game.getTeams().add(team);
+                    plugin.getGameManager().getArenaDatabase().saveArena(game, team);
+                    player.sendMessage(Messages.PREFIX + Messages.PLAYER_SAVE_CONFIG);
+                } else {
+                    player.sendMessage("§cThis arena is not created!");
+                }
             } else {
                 showHelp(player);
             }
@@ -128,10 +191,15 @@ public class BedWarsCommand implements CommandExecutor {
         }
     }
 
+    public HashMap<String, Game> getGames() {
+        return games;
+    }
+
     private void showHelp(Player player) {
         player.sendMessage("§7===== §a§lHELP §7=====");
         player.sendMessage("§r");
         player.sendMessage("§7/bw setLocalLobby");
+        player.sendMessage("§r§7/bw createarena");
         player.sendMessage("§r");
         player.sendMessage("§7/bw setLobby <arenaName>");
         player.sendMessage("§r");

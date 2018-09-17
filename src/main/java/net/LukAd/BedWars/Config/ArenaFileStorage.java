@@ -1,8 +1,8 @@
 package net.LukAd.BedWars.Config;
 
 import net.LukAd.BedWars.BedWars;
+import net.LukAd.BedWars.Commands.BedWarsCommand;
 import net.LukAd.BedWars.Config.Interfaces.ArenaDatabase;
-import net.LukAd.BedWars.Config.PluginConfig;
 import net.LukAd.BedWars.Game.Game;
 import net.LukAd.BedWars.Game.GameManager;
 import net.LukAd.BedWars.Game.Team;
@@ -11,6 +11,8 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 
+import javax.annotation.Nonnull;
+import java.beans.BeanDescriptor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -98,8 +100,48 @@ public class ArenaFileStorage implements ArenaDatabase {
         return games;
     }
 
-    @Override
-    public boolean saveArena(Game game) {
+@Override
+public boolean saveArena(Game game,Team team) {
+
+        storage.set("locallobby.world", game.getLocalLobby().getWorld());
+        storage.set("locallobby.x", game.getLocalLobby().getX());
+        storage.set("locallobby.y", game.getLocalLobby().getY());
+        storage.set("locallobby.z", game.getLocalLobby().getZ());
+        storage.set("locallobby.pitch", game.getLocalLobby().getPitch());
+        storage.set("locallobby.yaw", game.getLocalLobby().getYaw());
+
+        storage.set("arenas." + game.getName() + "lobby.world", game.getLobby().getWorld());
+        storage.set("arenas." + game.getName() + "lobby.x", game.getLobby().getX());
+        storage.set("arenas." + game.getName() + "lobby.y", game.getLobby().getY());
+        storage.set("arenas." + game.getName() + "lobby.z", game.getLobby().getZ());
+        storage.set("arenas." + game.getName() + "lobby.pitch", game.getLobby().getPitch());
+        storage.set("arenas." + game.getName() + "lobby.yaw", game.getLobby().getYaw());
+
+        if (team == null) return false;
+
+        storage.set("arenas." + game.getName() + ".teams." + team.getTeamName() + ".color", team.getColor());
+
+        storage.set("arenas." + game.getName() + ".maxplayers", game.getMaxPlayersPerTeam());
+
+        storage.set("arenas." + game.getName() + ".teams." + team.getTeamName() + ".spawn.world", team.getSpawnLocation().getWorld());
+        storage.set("arenas." + game.getName() + ".teams." + team.getTeamName() + ".spawn.x", team.getSpawnLocation().getX());
+        storage.set("arenas." + game.getName() + ".teams." + team.getTeamName() + ".spawn.y", team.getSpawnLocation().getY());
+        storage.set("arenas." + game.getName() + ".teams." + team.getTeamName() + ".spawn.z", team.getSpawnLocation().getZ());
+        storage.set("arenas." + game.getName() + ".teams." + team.getTeamName() + ".spawn.pitch", team.getSpawnLocation().getPitch());
+        storage.set("arenas." + game.getName() + ".teams." + team.getTeamName() + ".spawn.yaw", team.getSpawnLocation().getYaw());
+
+        storage.set("arenas." + game.getName() + ".teams." + team.getTeamName() + ".bed.world", team.getSpawnLocation().getWorld());
+        storage.set("arenas." + game.getName() + ".teams." + team.getTeamName() + ".bed.x", team.getSpawnLocation().getX());
+        storage.set("arenas." + game.getName() + ".teams." + team.getTeamName() + ".bed.y", team.getSpawnLocation().getY());
+        storage.set("arenas." + game.getName() + ".teams." + team.getTeamName() + ".bed.z", team.getSpawnLocation().getZ());
+
+        storage.set("Arena." + game.getName() + ".teams." + team.getTeamName() + ".villager.world", team.getVillagerLocation().getWorld());
+        storage.set("Arena." + game.getName() + ".teams." + team.getTeamName() + ".villager.x",team.getVillagerLocation().getX());
+        storage.set("Arena." + game.getName() + ".teams." + team.getTeamName() + ".villager.y", team.getVillagerLocation().getY());
+        storage.set("Arena." + game.getName() + ".teams." + team.getTeamName() + ".villager.z", team.getVillagerLocation().getZ());
+        storage.set("Arena." + game.getName() + ".teams." + team.getTeamName() + ".villager.pitch", team.getVillagerLocation().getPitch());
+        storage.set("Arena." + game.getName() + ".teams." + team.getTeamName() + ".villager.yaw", team.getVillagerLocation().getYaw());
+
         return false;
     }
 
