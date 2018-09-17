@@ -1,4 +1,4 @@
-package net.LukAd.BedWars.config;
+package net.LukAd.BedWars.Config;
 
 import net.LukAd.BedWars.BedWars;
 import net.LukAd.BedWars.Config.Interfaces.ArenaDatabase;
@@ -89,7 +89,7 @@ public class ArenaFileStorage implements ArenaDatabase {
                 teamVillager.setPitch(pitch2);
                 teamVillager.setYaw(yaw2);
 
-                teamList.add(new Team(teamName, teamBed, teamSpawn, colorCode, teamVillager, maxPlayersPerTeam));
+                teamList.add(new Team(teamName, teamBed, teamSpawn, colorCode, teamVillager));
             }
             Game game = new Game(gameManager, arenaName, teamList, lobby, maxPlayersPerTeam);
             games.put(arenaName, game);

@@ -13,7 +13,6 @@ public class Team {
 
     private String teamName;
     private String color;
-    private int maxplayers;
     private Location bedLocation;
     private Location villagerLocation;
 
@@ -21,13 +20,12 @@ public class Team {
 
     private Location spawnLocation;
 
-    public Team(String teamName, Location bedLocation, Location spawnLocation, String color, Location villagerLocation, int maxplayers) {
+    public Team(String teamName, Location bedLocation, Location spawnLocation, String color, Location villagerLocation) {
         this.teamName = teamName;
         this.bedLocation = bedLocation;
         this.spawnLocation = spawnLocation;
         this.color = color;
         this.villagerLocation = villagerLocation;
-        this.maxplayers = maxplayers;
     }
 
     public String getTeamName() {
